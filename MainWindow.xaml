@@ -7,7 +7,7 @@
             mc:Ignorable="d"
             
             Title="桌面时钟" Height="613.637" Width="1419.773" Background="Transparent" WindowStyle="None" AllowsTransparency="true"
-            Loaded="MainWindow_OnLoaded" ShowInTaskbar="False">
+            Loaded="MainWindow_OnLoaded" ShowInTaskbar="False" MouseMove="window_MouseMove">
     <Window.Resources>
         <Style x:Key="myFont">
             <Setter Property="TextElement.FontFamily" Value="#01 Digit"/>
@@ -20,11 +20,12 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="153*"/>
         </Grid.ColumnDefinitions>
+
         <Label x:Name="tHour_" Content="00" HorizontalAlignment="Left" Height="291" Margin="10,49,0,0" VerticalAlignment="Top" Width="391" Style="{StaticResource myFont}" FontSize="340" Background="#00000000" Foreground="White" Grid.ColumnSpan="2"/>
-        <Label x:Name="tSecond" Content="00" HorizontalAlignment="Left" Height="165" Margin="742.6,169,0,0" VerticalAlignment="Top" Width="221" Style="{StaticResource myFont}" FontSize="180" Background="#00000000" Foreground="White" Grid.Column="1" Grid.ColumnSpan="3"/>
-        <Label x:Name="tMinute" Content="00" HorizontalAlignment="Left" Height="291" Margin="250.6,49,0,0" VerticalAlignment="Top" Width="391" Style="{StaticResource myFont}" FontSize="340" Background="#00000000" Foreground="White" Grid.Column="1"/>
-        <Label x:Name="HourMinuteDot" Content=":" HorizontalAlignment="Left" Height="291" Margin="178.6,76,0,0" VerticalAlignment="Top" Width="125" Style="{StaticResource myFont}" FontSize="280" Background="#00000000" Foreground="White" Grid.Column="1"/>
-        <Label x:Name="MinuteSecondDot" Content=":" HorizontalAlignment="Left" Height="165" Margin="694.6,169,0,0" VerticalAlignment="Top" Width="65" Style="{StaticResource myFont}" FontSize="180" Background="#00000000" Foreground="White" Grid.Column="1"/>
+        <Label x:Name="tSecond" Content="00" HorizontalAlignment="Right" Height="165" Margin="0,169,164.023,0" VerticalAlignment="Top" Width="221" Style="{StaticResource myFont}" FontSize="180" Background="#00000000" Foreground="White" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <Label x:Name="tMinute" Content="00" HorizontalAlignment="Right" Height="291" Margin="0,49,214.4,0" VerticalAlignment="Top" Width="391" Style="{StaticResource myFont}" FontSize="340" Background="#00000000" Foreground="White" Grid.Column="1"/>
+        <Label x:Name="HourMinuteDot" Content=":" HorizontalAlignment="Right" Height="291" Margin="0,76,552.4,0" VerticalAlignment="Top" Width="125" Style="{StaticResource myFont}" FontSize="280" Background="#00000000" Foreground="White" Grid.Column="1"/>
+        <Label x:Name="MinuteSecondDot" Content=":" HorizontalAlignment="Right" Height="165" Margin="0,169,96.4,0" VerticalAlignment="Top" Width="65" Style="{StaticResource myFont}" FontSize="180" Background="#00000000" Foreground="White" Grid.Column="1"/>
         <Label x:Name="tYear" Grid.ColumnSpan="2" Content="0000-00-00" Style="{StaticResource myFont}" FontSize="160" HorizontalAlignment="Left" Height="192" Margin="10,372,0,0" VerticalAlignment="Top" Width="964" Foreground="White"/>
         <Label x:Name="tDay" Grid.ColumnSpan="3" Content="ABC" Style="{StaticResource myFont}" FontSize="160" HorizontalAlignment="Left" Height="192" Margin="671.6,372,0,0" VerticalAlignment="Top" Width="282" Foreground="White" Grid.Column="1"/>
 

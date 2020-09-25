@@ -59,6 +59,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MyConfig.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>MyConfig.settings</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,6 +95,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="MyConfig.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>MyConfig.Designer.cs</LastGenOutput>
+    </None>
     <Resource Include="Digit.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
