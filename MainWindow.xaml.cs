@@ -80,6 +80,8 @@ namespace DesktopTimer
                                                                  WeatherIcon.Text = "Refreshing...";
                                                                  WeatherInfo.Foreground =
                                                                      new SolidColorBrush(Colors.White);
+                                                                 Temp.Text = "";
+                                                                 Wind.Text = "";
                                                                  RotateTransform rtf = new RotateTransform();
                                                                  RefreshWeatherBtn.RenderTransform = rtf;
                                                                  //DoubleAnimation dbAscending = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(1)));

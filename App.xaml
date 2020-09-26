@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:DesktopTimer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="01 Digit">./Digit.ttf</FontFamily>
     </Application.Resources>
 </Application>
