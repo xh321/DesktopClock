@@ -103,7 +103,7 @@ namespace DesktopTimer
                                            wc.Encoding = System.Text.Encoding.UTF8;
                                            // var cityInfo = (JObject)JsonConvert.DeserializeObject(wc.DownloadString($"https://geocode.xyz/{lat},{lon}?geoit=json"));
                                            var weatherStatus =
-                                               ParseWeather(wc.DownloadString($"http://wttr.in/{lat},{lon}?format=2"));
+                                               ParseWeather(wc.DownloadString($"http://wttr.in/{lon},{lat}?format=2"));
 
                                            Dispatcher.Invoke(() =>
                                                              {
