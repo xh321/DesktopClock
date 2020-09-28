@@ -201,15 +201,16 @@ namespace DesktopTimer
         private WeatherStatus ParseWeather(string input)
         {
             input = input.Replace("  ", "").Trim();
-            var splited = input.Split(' ');
-            if (splited.Length < 3)
+            string weatherIco = String_GetLeft(input, "🌡").Trim();
+            string Temp       = GetBetween(input, "🌡", "🌬").Trim();
+            string Wind       = String_GetRight_Last(input, "🌬").Trim();
+            if (!Char.IsDigit(Wind.ToCharArray()[0]))
             {
-                return new WeatherStatus();
+                Wind = Wind.Substring(1);
             }
-
-            var re = new WeatherStatus();
-            re.WeatherIco = splited[0] + " ";
-            switch (splited[0])
+            var    re         = new WeatherStatus();
+            re.WeatherIco = weatherIco + " ";
+            switch (weatherIco)
             {
                 case "☀️":
                     re.WeatherColor = Colors.Yellow;
@@ -249,8 +250,8 @@ namespace DesktopTimer
                     break;
             }
 
-            re.Temp = splited[1] + " ";
-            if (!int.TryParse(splited[1].Substring(2, 4), out int temp))
+            re.Temp = "🌡"+Temp + " ";
+            if (!int.TryParse(String_GetLeft(Temp.Substring(1),"°C"), out int temp))
             {
                 temp = 0;
             }
@@ -291,8 +292,8 @@ namespace DesktopTimer
                 re.TempColor = Colors.DarkRed;
             }
 
-            re.Wind = splited[2]+" ";
-            if (!int.TryParse(splited[2].Substring(4, splited[2].Length - 8), out int wind))
+            re.Wind = "🌬"+Wind +" ";
+            if (!int.TryParse(String_GetLeft(Wind,"km/h"), out int wind))
             {
                 wind = 0;
             }
@@ -349,6 +350,65 @@ namespace DesktopTimer
             return Registry.CurrentUser
                            .OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", false)
                            .GetValue("SystemUsesLightTheme").ToString();
+        }
+
+        public static string GetBetween( string text, string left, string right)
+        {
+            //判断是否为null或者是empty
+            if (string.IsNullOrEmpty(left))
+                return "";
+            if (string.IsNullOrEmpty(right))
+                return "";
+            if (string.IsNullOrEmpty(text))
+                return "";
+            //判断是否为null或者是empty
+
+            int Lindex = text.IndexOf(left); //搜索left的位置
+
+            if (Lindex == -1)
+            { //判断是否找到left
+                return "";
+            }
+
+            Lindex = Lindex + left.Length; //取出left右边文本起始位置
+
+            int Rindex = text.IndexOf(right, Lindex); //从left的右边开始寻找right
+
+            if (Rindex == -1)
+            { //判断是否找到right
+                return "";
+            }
+
+            return text.Substring(Lindex, Rindex - Lindex); //返回查找到的文本
+        }
+
+
+        static public string String_GetLeft(string in_str, string find_str)
+        {
+            string re_1  = "";
+            int    index = in_str.IndexOf(find_str);
+            if (index > 0)
+            {
+                re_1 = in_str.Substring(0, index);
+            }
+            return re_1;
+        }
+
+
+        static public string String_GetRight_Last(string in_str, string find_str)
+        {
+            string[] sz;
+
+            sz = in_str.Split(find_str.ToCharArray());
+            string re = "";
+            if (true)
+            {
+                if (sz.Length > 0)
+                {
+                    re = sz[sz.Length - 1];
+                }
+            }
+            return re;
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
