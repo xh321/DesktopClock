@@ -201,14 +201,18 @@ namespace DesktopTimer
         private WeatherStatus ParseWeather(string input)
         {
             input = input.Replace("  ", "").Trim();
-            string weatherIco = String_GetLeft(input, "🌡").Trim();
-            string Temp       = GetBetween(input, "🌡", "🌬").Trim();
-            string Wind       = String_GetRight_Last(input, "🌬").Trim();
-            if (!Char.IsDigit(Wind.ToCharArray()[0]))
+            string weatherIco    = String_GetLeft(input, "🌡").Trim();
+            string Temp          = GetBetween(input, "🌡", "🌬").Trim();
+            string Wind          = String_GetRight_Last(input, "🌬").Trim();
+            string WindDirection = "";
+            //Emoji双字符，会遗留一个空白字符，需根据第二个字符是否为风向来判断
+            if (!Char.IsDigit(Wind.ToCharArray()[1])) //如果不是数字，那就是风向了
             {
-                Wind = Wind.Substring(1);
+                WindDirection = Wind.Substring(1, 1); //风向
+                Wind          = Wind.Substring(2);    //去掉风向之后的风速
             }
-            var    re         = new WeatherStatus();
+
+            var re = new WeatherStatus();
             re.WeatherIco = weatherIco + " ";
             switch (weatherIco)
             {
@@ -250,15 +254,17 @@ namespace DesktopTimer
                     break;
             }
 
-            re.Temp = "🌡"+Temp + " ";
-            if (!int.TryParse(String_GetLeft(Temp.Substring(1),"°C"), out int temp))
+            re.Temp = "🌡" + Temp + " ";       //SubString从第二个取的原因是Emoji字符会遗留一个空白字符
+            if (!int.TryParse(String_GetLeft(Temp.Substring(1), "°C"), out int temp))
             {
                 temp = 0;
             }
+
             if (temp < -20)
             {
                 re.TempColor = Colors.DarkBlue;
             }
+
             if (temp < -10)
             {
                 re.TempColor = Colors.Blue;
@@ -292,8 +298,8 @@ namespace DesktopTimer
                 re.TempColor = Colors.DarkRed;
             }
 
-            re.Wind = "🌬"+Wind +" ";
-            if (!int.TryParse(String_GetLeft(Wind,"km/h"), out int wind))
+            re.Wind = "🌬" + WindDirection + Wind + " ";
+            if (!int.TryParse(String_GetLeft(Wind, "km/h"), out int wind))
             {
                 wind = 0;
             }
@@ -352,7 +358,7 @@ namespace DesktopTimer
                            .GetValue("SystemUsesLightTheme").ToString();
         }
 
-        public static string GetBetween( string text, string left, string right)
+        public static string GetBetween(string text, string left, string right)
         {
             //判断是否为null或者是empty
             if (string.IsNullOrEmpty(left))
@@ -366,7 +372,8 @@ namespace DesktopTimer
             int Lindex = text.IndexOf(left); //搜索left的位置
 
             if (Lindex == -1)
-            { //判断是否找到left
+            {
+                //判断是否找到left
                 return "";
             }
 
@@ -375,7 +382,8 @@ namespace DesktopTimer
             int Rindex = text.IndexOf(right, Lindex); //从left的右边开始寻找right
 
             if (Rindex == -1)
-            { //判断是否找到right
+            {
+                //判断是否找到right
                 return "";
             }
 
@@ -391,6 +399,7 @@ namespace DesktopTimer
             {
                 re_1 = in_str.Substring(0, index);
             }
+
             return re_1;
         }
 
@@ -408,6 +417,7 @@ namespace DesktopTimer
                     re = sz[sz.Length - 1];
                 }
             }
+
             return re;
         }
 
