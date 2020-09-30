@@ -267,17 +267,21 @@ namespace DesktopTimer
 
             if (temp < -10)
             {
-                re.TempColor = Colors.Blue;
+                re.TempColor = Colors.MidnightBlue;
             }
             else if (temp < 10)
             {
-                re.TempColor = Colors.DarkTurquoise;
+                re.TempColor = Colors.Blue;
             }
             else if (temp < 20)
             {
-                re.TempColor = Colors.Aqua;
+                re.TempColor = Colors.DarkTurquoise;
             }
             else if (temp < 30)
+            {
+                re.TempColor = Colors.Aqua;
+            }
+            else if (temp < 35)
             {
                 re.TempColor = Colors.Yellow;
             }
