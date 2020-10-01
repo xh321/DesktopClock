@@ -102,21 +102,34 @@ namespace DesktopTimer
                                            WebClient wc  = new WebClient();
                                            wc.Encoding = System.Text.Encoding.UTF8;
                                            // var cityInfo = (JObject)JsonConvert.DeserializeObject(wc.DownloadString($"https://geocode.xyz/{lat},{lon}?geoit=json"));
-                                           var weatherStatus =
-                                               ParseWeather(wc.DownloadString($"http://wttr.in/{lon},{lat}?format=2"));
+                                           string apiRet = wc.DownloadString($"http://wttr.in/{lon},{lat}?format=2");
+                                           if (!apiRet.Contains("Unknow"))
+                                           {
+                                               var weatherStatus = ParseWeather(apiRet);
 
-                                           Dispatcher.Invoke(() =>
-                                                             {
-                                                                 WeatherIcon.Text = weatherStatus.WeatherIco;
-                                                                 WeatherIcon.Foreground =
-                                                                     new SolidColorBrush(weatherStatus.WeatherColor);
-                                                                 Temp.Text = weatherStatus.Temp;
-                                                                 Temp.Foreground =
-                                                                     new SolidColorBrush(weatherStatus.TempColor);
-                                                                 Wind.Text = weatherStatus.Wind;
-                                                                 Wind.Foreground =
-                                                                     new SolidColorBrush(weatherStatus.WindColor);
-                                                             });
+                                               Dispatcher.Invoke(() =>
+                                                                 {
+                                                                     WeatherIcon.Text = weatherStatus.WeatherIco;
+                                                                     WeatherIcon.Foreground =
+                                                                         new SolidColorBrush(weatherStatus.WeatherColor);
+                                                                     Temp.Text = weatherStatus.Temp;
+                                                                     Temp.Foreground =
+                                                                         new SolidColorBrush(weatherStatus.TempColor);
+                                                                     Wind.Text = weatherStatus.Wind;
+                                                                     Wind.Foreground =
+                                                                         new SolidColorBrush(weatherStatus.WindColor);
+                                                                 });
+                                           }
+                                           else
+                                           {
+                                               Dispatcher.Invoke(() =>
+                                               {
+                                                   WeatherIcon.Text = "Weather Service Down";
+                                                   WeatherInfo.Foreground =
+                                                        new SolidColorBrush(Colors.White);
+                                               });
+                                           }
+
                                        });
             Update.Start();
         }
