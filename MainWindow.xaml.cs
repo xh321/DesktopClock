@@ -29,6 +29,7 @@ namespace DesktopTimer
             public string WeatherIco   = "ERROR LOADING WEATHER";
             public string Temp         = "";
             public string Wind         = "";
+            public string WindLevel    = "";
             public Color  WeatherColor = Colors.White;
             public Color  TempColor    = Colors.White;
             public Color  WindColor    = Colors.White;
@@ -116,6 +117,7 @@ namespace DesktopTimer
                                                                      Temp.Foreground =
                                                                          new SolidColorBrush(weatherStatus.TempColor);
                                                                      Wind.Text = weatherStatus.Wind;
+                                                                     Wind.Text += "   LEVEL  "+weatherStatus.WindLevel;
                                                                      Wind.Foreground =
                                                                          new SolidColorBrush(weatherStatus.WindColor);
                                                                  });
@@ -321,37 +323,95 @@ namespace DesktopTimer
                 wind = 0;
             }
 
-            if (wind < 5)
+            if(wind <1 )
             {
+                re.WindLevel = "0";
                 re.WindColor = Colors.White;
             }
-            else if (wind < 10)
+            else if (wind <= 5)
             {
+                re.WindLevel = "1";
+                re.WindColor = Colors.AliceBlue;
+            }
+            else if (wind <= 19)
+            {
+                re.WindLevel = "2";
                 re.WindColor = Colors.Aquamarine;
             }
-            else if (wind < 15)
+            else if (wind <= 28)
             {
-                re.WindColor = Colors.SkyBlue;
-            }
-            else if (wind < 20)
-            {
+                re.WindLevel = "3";
                 re.WindColor = Colors.Aqua;
             }
-            else if (wind < 25)
+            else if (wind <= 38)
             {
+                re.WindLevel = "4";
+                re.WindColor = Colors.Cyan;
+            }
+            else if (wind <= 49)
+            {
+                re.WindLevel = "5";
                 re.WindColor = Colors.DeepSkyBlue;
             }
-            else if (wind < 30)
+            else if (wind <= 61)
             {
+                re.WindLevel = "6";
+                re.WindColor = Colors.CornflowerBlue;
+            }
+            else if (wind <= 74)
+            {
+                re.WindLevel = "7";
+                re.WindColor = Colors.DodgerBlue;
+            }
+            else if (wind <= 88)
+            {
+                re.WindLevel = "8";
                 re.WindColor = Colors.Blue;
             }
-            else if (wind < 35)
+            else if (wind <= 102)
             {
+                re.WindLevel = "9";
                 re.WindColor = Colors.MediumBlue;
+            }
+            else if (wind <= 117)
+            {
+                re.WindLevel = "10";
+                re.WindColor = Colors.DarkBlue;
+            }
+            else if (wind <= 134)
+            {
+                re.WindLevel = "11";
+                re.WindColor = Colors.MidnightBlue;
+            }
+            else if (wind <= 149)
+            {
+                re.WindLevel = "12";
+                re.WindColor = Colors.Navy;
+            }
+            else if (wind <= 166)
+            {
+                re.WindLevel = "13";
+                re.WindColor = Colors.Navy;
+            }
+            else if (wind <= 183)
+            {
+                re.WindLevel = "14";
+                re.WindColor = Colors.Navy;
+            }
+            else if (wind <= 201)
+            {
+                re.WindLevel = "15";
+                re.WindColor = Colors.Navy;
+            }
+            else if (wind <= 220)
+            {
+                re.WindLevel = "16";
+                re.WindColor = Colors.Navy;
             }
             else
             {
-                re.WindColor = Colors.DarkBlue;
+                re.WindLevel = "17";
+                re.WindColor = Colors.Navy;
             }
 
             return re;
