@@ -103,8 +103,34 @@ namespace DesktopTimer
                                            WebClient wc  = new WebClient();
                                            wc.Encoding = System.Text.Encoding.UTF8;
                                            // var cityInfo = (JObject)JsonConvert.DeserializeObject(wc.DownloadString($"https://geocode.xyz/{lat},{lon}?geoit=json"));
-                                           string apiRet = wc.DownloadString($"http://wttr.in/{lon},{lat}?format=2");
-                                           if (!apiRet.Contains("Unknow"))
+                                           string apiRet = "";
+
+                                           try
+                                           {
+                                               apiRet = wc.DownloadString($"http://wttr.in/{lon},{lat}?format=2");
+                                             
+                                           }
+                                           catch{}
+
+                                           if (apiRet.Contains("Unknow"))
+                                           {
+                                               Dispatcher.Invoke(() =>
+                                               {
+                                                   WeatherIcon.Text = "Weather Service Down";
+                                                   WeatherInfo.Foreground =
+                                                        new SolidColorBrush(Colors.White);
+                                               });
+                                           }
+                                           else if (string.IsNullOrEmpty(apiRet))
+                                           {
+                                               Dispatcher.Invoke(() =>
+                                               {
+                                                   WeatherIcon.Text = "Network Connect Error";
+                                                   WeatherInfo.Foreground =
+                                                        new SolidColorBrush(Colors.White);
+                                               });
+                                           }
+                                           else
                                            {
                                                var weatherStatus = ParseWeather(apiRet);
 
@@ -121,15 +147,6 @@ namespace DesktopTimer
                                                                      Wind.Foreground =
                                                                          new SolidColorBrush(weatherStatus.WindColor);
                                                                  });
-                                           }
-                                           else
-                                           {
-                                               Dispatcher.Invoke(() =>
-                                               {
-                                                   WeatherIcon.Text = "Weather Service Down";
-                                                   WeatherInfo.Foreground =
-                                                        new SolidColorBrush(Colors.White);
-                                               });
                                            }
 
                                        });
@@ -432,7 +449,7 @@ namespace DesktopTimer
         {
             return Registry.CurrentUser
                            .OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", false)
-                           .GetValue("SystemUsesLightTheme").ToString();
+                           .GetValue("AppsUseLightTheme").ToString();
         }
 
         public static string GetBetween(string text, string left, string right)
