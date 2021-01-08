@@ -107,7 +107,7 @@ namespace DesktopTimer
 
                                            try
                                            {
-                                               apiRet = wc.DownloadString($"http://wttr.in/{lon},{lat}?format=2");
+                                               apiRet = wc.DownloadString($"https://wttr.in/{lon},{lat}?format=2");
                                              
                                            }
                                            catch{}
@@ -121,7 +121,7 @@ namespace DesktopTimer
                                                         new SolidColorBrush(Colors.White);
                                                });
                                            }
-                                           else if (string.IsNullOrEmpty(apiRet))
+                                           else if (string.IsNullOrEmpty(apiRet) || !apiRet.Contains("wttr.in"))
                                            {
                                                Dispatcher.Invoke(() =>
                                                {
