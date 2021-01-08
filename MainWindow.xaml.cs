@@ -121,7 +121,7 @@ namespace DesktopTimer
                                                         new SolidColorBrush(Colors.White);
                                                });
                                            }
-                                           else if (string.IsNullOrEmpty(apiRet) || !apiRet.Contains("wttr.in"))
+                                           else if (string.IsNullOrEmpty(apiRet) || apiRet.Contains("html"))
                                            {
                                                Dispatcher.Invoke(() =>
                                                {
