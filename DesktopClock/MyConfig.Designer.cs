@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DesktopTimer {
+namespace DesktopClock {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class MyConfig : global::System.Configuration.ApplicationSettingsBase {
         
         private static MyConfig defaultInstance = ((MyConfig)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new MyConfig())));
@@ -26,9 +26,9 @@ namespace DesktopTimer {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public double LastTop {
+        public string LastTop {
             get {
-                return ((double)(this["LastTop"]));
+                return ((string)(this["LastTop"]));
             }
             set {
                 this["LastTop"] = value;
@@ -38,9 +38,9 @@ namespace DesktopTimer {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public double LastLeft {
+        public string LastLeft {
             get {
-                return ((double)(this["LastLeft"]));
+                return ((string)(this["LastLeft"]));
             }
             set {
                 this["LastLeft"] = value;
