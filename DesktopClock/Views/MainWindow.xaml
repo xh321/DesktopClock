@@ -12,10 +12,10 @@
         Loaded="MainWindow_OnLoaded" ShowInTaskbar="False" MouseMove="window_MouseMove">
     <Window.Resources>
         <Style TargetType="Label">
-            <Setter Property="FontFamily" Value="{StaticResource '01 Digit'}"/>
+            <Setter Property="FontFamily" Value="../Resource/#01 Digit"/>
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="{StaticResource '01 Digit'}"/>
+            <Setter Property="FontFamily" Value="../Resource/#01 Digit"/>
         </Style>
     </Window.Resources>
     <Grid Background="#00000000" HorizontalAlignment="Left" Width="1410">
