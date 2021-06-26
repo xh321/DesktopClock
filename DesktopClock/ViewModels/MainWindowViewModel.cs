@@ -154,45 +154,42 @@ namespace DesktopClock.ViewModels
                         mainWindow.Dispatcher.Invoke(() =>
                                                      {
                                                          mainWindow.tHour_.Foreground =
-                                                             new SolidColorBrush(WindowsUtils
-                                                                 .GetColorFromHex("#36BBCE"));
+                                                             new SolidColorBrush("#36BBCE".ToColor());
                                                          mainWindow.tMinute.Foreground =
-                                                             new SolidColorBrush(WindowsUtils
-                                                                 .GetColorFromHex("#33CCCC"));
+                                                             new SolidColorBrush("#33CCCC".ToColor());
                                                          mainWindow.tSecond.Foreground =
-                                                             new SolidColorBrush(WindowsUtils
-                                                                 .GetColorFromHex("#5CCCCC"));
+                                                             new SolidColorBrush("#5CCCCC".ToColor());
                                                          mainWindow.tDate.Foreground =
                                                              new
-                                                                 LinearGradientBrush(WindowsUtils.GetColorFromHex("#BF7130"),
-                                                                     WindowsUtils.GetColorFromHex("#FF7400"),
+                                                                 LinearGradientBrush("#BF7130".ToColor(),
+                                                                    "#FF7400".ToColor(),
                                                                      45.0);
                                                          mainWindow.tDay.Foreground =
                                                              new
-                                                                 LinearGradientBrush(WindowsUtils.GetColorFromHex("#FF7400"),
-                                                                     WindowsUtils.GetColorFromHex("#FFB273"),
+                                                                 LinearGradientBrush("#FF7400".ToColor(),
+                                                                     "#FFB273".ToColor(),
                                                                      45.0);
                                                          mainWindow.HourMinuteDot.Foreground =
                                                              new
-                                                                 LinearGradientBrush(WindowsUtils.GetColorFromHex("#009999"),
-                                                                     WindowsUtils.GetColorFromHex("#33CCCC"),
+                                                                 LinearGradientBrush("#009999".ToColor(),
+                                                                     "#33CCCC".ToColor(),
                                                                      45.0);
                                                          mainWindow.MinuteSecondDot.Foreground =
                                                              new
-                                                                 LinearGradientBrush(WindowsUtils.GetColorFromHex("#33CCCC"),
-                                                                     WindowsUtils.GetColorFromHex("#5CCCCC"),
+                                                                 LinearGradientBrush("#33CCCC".ToColor(),
+                                                                     "#5CCCCC".ToColor(),
                                                                      45.0);
                                                      });
                         break;
                     case "0":
                         mainWindow.Dispatcher.Invoke(() =>
                                                      {
-                                                         Color color1 = WindowsUtils.GetColorFromHex("#057D9F");
-                                                         Color color2 = WindowsUtils.GetColorFromHex("#39AECF");
-                                                         Color color3 = WindowsUtils.GetColorFromHex("#61B7CF");
-                                                         Color color4 = WindowsUtils.GetColorFromHex("#5DC8CD");
-                                                         Color color5 = WindowsUtils.GetColorFromHex("#3F92D2");
-                                                         Color color6 = WindowsUtils.GetColorFromHex("#0B61A4");
+                                                         var color1 = "#057D9F".ToColor();
+                                                         var color2 = "#39AECF".ToColor();
+                                                         var color3 = "#61B7CF".ToColor();
+                                                         var color4 = "#5DC8CD".ToColor();
+                                                         var color5 = "#3F92D2".ToColor();
+                                                         var color6 = "#0B61A4".ToColor();
 
 
                                                          mainWindow.tHour_.Foreground =
@@ -208,13 +205,13 @@ namespace DesktopClock.ViewModels
 
                                                          mainWindow.tDate.Foreground =
                                                              new
-                                                                 LinearGradientBrush(WindowsUtils.GetColorFromHex("#1049A9"),
-                                                                     WindowsUtils.GetColorFromHex("#87baf3"),
+                                                                 LinearGradientBrush("#1049A9".ToColor(),
+                                                                     "#87baf3".ToColor(),
                                                                      45.0);
                                                          mainWindow.tDay.Foreground =
                                                              new
-                                                                 LinearGradientBrush(WindowsUtils.GetColorFromHex("#87baf3"),
-                                                                     WindowsUtils.GetColorFromHex("#052C6E"),
+                                                                 LinearGradientBrush("#87baf3".ToColor(),
+                                                                     "#052C6E".ToColor(),
                                                                      45.0);
                                                      });
                         break;

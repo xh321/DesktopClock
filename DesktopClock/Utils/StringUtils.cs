@@ -4,6 +4,15 @@ namespace DesktopClock.Utils
 {
     public static class StringUtils
     {
+        public static string GetMiddle(this string text, string left, string right)
+        {
+            if (string.IsNullOrEmpty(text)) return text;
+
+            var leftIndex = text.IndexOf(left, StringComparison.Ordinal);
+
+            throw new NotImplementedException();
+        }
+
         public static string GetBetween(string text, string left, string right)
         {
             //判断是否为null或者是empty
@@ -36,9 +45,31 @@ namespace DesktopClock.Utils
             return text.Substring(Lindex, Rindex - Lindex); //返回查找到的文本
         }
 
+        public static string GetLeft(this string text, string findStr)
+        {
+            if (text is null) throw new ArgumentNullException(nameof(text));
+            if (findStr is null) throw new ArgumentNullException(nameof(findStr));
+            if (findStr == string.Empty) return text;
+
+            var textSpan = text.AsSpan();
+            var findSpan = findStr.AsSpan();
+            for (int i = 0, j = 0; i < text.Length; ++i)
+            {
+                while (j < findStr.Length && textSpan[i] == findSpan[j])
+                {
+                    if (j == findStr.Length - 1)
+                    {
+                        return textSpan[..(i - findStr.Length + 1)].ToString();
+                    }
+                    ++j;
+                }
+            }
+            return string.Empty;
+        }
+
         public static string String_GetLeft(string in_str, string find_str)
         {
-            var re_1  = "";
+            var re_1 = "";
             var index = in_str.IndexOf(find_str, StringComparison.Ordinal);
             if (index > 0)
             {
@@ -48,10 +79,32 @@ namespace DesktopClock.Utils
             return re_1;
         }
 
+        public static string GetRight(this string text, string findStr)
+        {
+            if (text is null) throw new ArgumentNullException(nameof(text));
+            if (findStr is null) throw new ArgumentNullException(nameof(findStr));
+            if (findStr == string.Empty) return text;
+
+            var textSpan = text.AsSpan();
+            var findSpan = findStr.AsSpan();
+            for (int i = 0, j = 0; i < text.Length; ++i)
+            {
+                while (j < findStr.Length && textSpan[i] == findSpan[j])
+                {
+                    if (j == findStr.Length - 1)
+                    {
+                        return textSpan[(i + 1)..].ToString();
+                    }
+                    ++j;
+                }
+            }
+            return string.Empty;
+        }
+
         public static string String_GetRight_Last(string in_str, string find_str)
         {
             var sz = in_str.Split(find_str.ToCharArray());
-            var   re = "";
+            var re = "";
             if (true)
             {
                 if (sz.Length > 0)
