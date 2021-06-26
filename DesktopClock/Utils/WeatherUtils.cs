@@ -120,7 +120,7 @@ namespace DesktopClock.Utils
                 re.TempColor = Colors.DarkRed;
             }
 
-            re.Wind = "🌬" + WindDirection + Wind + " ";
+            re.Wind = "💨" + WindDirection + Wind + " ";
             if (!int.TryParse(StringUtils.String_GetLeft(Wind, "km/h"), out int wind))
             {
                 wind = 0;
