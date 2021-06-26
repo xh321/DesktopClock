@@ -11,7 +11,7 @@ namespace DesktopClock.Utils
                        ?.GetValue("AppsUseLightTheme")
                        ?.ToString();
 
-        private static System.Windows.Media.Color GetColorFromHex(string hex)
+        public static System.Windows.Media.Color GetColorFromHex(string hex)
         {
             var color   = ColorTranslator.FromHtml(hex);
             var toColor = new System.Windows.Media.Color

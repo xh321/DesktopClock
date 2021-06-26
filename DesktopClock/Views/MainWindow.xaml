@@ -37,11 +37,17 @@
         <Label x:Name="tDate" Grid.ColumnSpan="2" Content="{Binding DateText}" FontSize="160" Height="150" Margin="10,372,164.4,0" VerticalAlignment="Top" Foreground="White"/>
         <Label x:Name="tDay" Grid.ColumnSpan="3" Content="{Binding DayText}" FontSize="160" HorizontalAlignment="Left" Height="150" Margin="671.6,372,0,0" VerticalAlignment="Top" Width="282" Foreground="White" Grid.Column="1"/>
         <TextBlock x:Name="WeatherInfo" HorizontalAlignment="Left" Height="106" Margin="10,546,0,0" VerticalAlignment="Top" Width="1090" FontSize="60" Grid.ColumnSpan="2">
-            <Run x:Name="Weather" Foreground="{Binding WeatherForeground}" Text="{Binding WeatherText}"/>
-            <Run x:Name="Temp" Foreground="{Binding TempForeground}" Text="{Binding TempText}"/>
-            <Run x:Name="Wind" Foreground="{Binding WindForeground}" Text="{Binding WindText}"/>
+            <Run x:Name="Weather" Foreground="White" Text="{Binding WeatherText}"/>
+            <Run x:Name="Temp" Foreground="Blue" Text="{Binding TempText}"/>
+            <Run x:Name="Wind" Foreground="Aqua" Text="{Binding WindText}"/>
         </TextBlock>
-        <Label x:Name="RefreshWeatherBtn" Content=""  MouseLeftButtonDown="RefreshWeatherBtn_OnMouseDown" Grid.Column="3"   HorizontalAlignment="Left" Height="64" Margin="41.6,541,0,0" VerticalAlignment="Top" Width="56" Foreground="#FF00FFFA" FontSize="40" RenderTransformOrigin="0.5,0.5" FontFamily="Segoe UI Symbol"/>
+        <Button x:Name="RefreshWeatherBtn" Content=""  
+                Command="{Binding WeatherFreshButtonCommand}" 
+                Grid.Column="3"   HorizontalAlignment="Left" 
+                Height="64" Margin="41.6,541,0,0"
+                VerticalAlignment="Top" Width="56" Foreground="#FF00FFFA"
+                Background="Transparent" BorderBrush="Transparent"
+                FontSize="40" RenderTransformOrigin="0.5,0.5" FontFamily="Segoe UI Symbol"/>
 
         <ContentControl Grid.Column="0" prism:RegionManager.RegionName="ContentRegion" />
     </Grid>

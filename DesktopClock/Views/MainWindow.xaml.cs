@@ -1,11 +1,11 @@
 using System;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using DesktopClock.Resource;
 using DryIoc;
+using ModernWpf.Controls;
 
 namespace DesktopClock.Views
 {
@@ -32,6 +32,7 @@ namespace DesktopClock.Views
                               });
 
             GlobalVariable.GlobalContainer.RegisterInstance(this);
+            GlobalVariable.WindowStarted.Set();
         }
 
         private void window_MouseMove(object sender, MouseEventArgs e)
@@ -45,30 +46,27 @@ namespace DesktopClock.Views
             }
         }
 
-        private void RefreshWeatherBtn_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
         public void RefreshingWeatherUI()
         {
-            // Dispatcher.Invoke(() =>
-            //                   {
-            //                       RotateTransform rtf = new RotateTransform();
-            //                       RefreshWeatherBtn.RenderTransform = rtf;
-            //                       //DoubleAnimation dbAscending = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(1)));
-            //                       DoubleAnimation ani = new DoubleAnimation();
-            //                       ani.From     = 0;
-            //                       ani.To       = 360;
-            //                       ani.Duration = TimeSpan.FromMilliseconds(500);
-            //                       Storyboard storyboard = new Storyboard();
-            //                       //ani.RepeatBehavior = RepeatBehavior.Forever;
-            //                       storyboard.Children.Add(ani);
-            //                       Storyboard.SetTarget(ani, RefreshWeatherBtn);
-            //                       Storyboard.SetTargetProperty(ani,
-            //                                                    new PropertyPath("RenderTransform.Angle"));
-            //                       storyboard.Begin();
-            //                   });
+            Dispatcher.Invoke(() =>
+                              {
+                                  WeatherInfo.Foreground =
+                                      new SolidColorBrush(Colors.White);
+                                  RotateTransform rtf = new RotateTransform();
+                                  RefreshWeatherBtn.RenderTransform = rtf;
+                                  //DoubleAnimation dbAscending = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(1)));
+                                  DoubleAnimation ani = new DoubleAnimation();
+                                  ani.From     = 0;
+                                  ani.To       = 360;
+                                  ani.Duration = TimeSpan.FromMilliseconds(500);
+                                  Storyboard storyboard = new Storyboard();
+                                  //ani.RepeatBehavior = RepeatBehavior.Forever;
+                                  storyboard.Children.Add(ani);
+                                  Storyboard.SetTarget(ani, RefreshWeatherBtn);
+                                  Storyboard.SetTargetProperty(ani,
+                                                               new PropertyPath("RenderTransform.Angle"));
+                                  storyboard.Begin();
+                              });
         }
     }
 }
