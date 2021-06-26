@@ -26,9 +26,9 @@ namespace DesktopClock {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public string LastTop {
+        public double LastTop {
             get {
-                return ((string)(this["LastTop"]));
+                return ((double)(this["LastTop"]));
             }
             set {
                 this["LastTop"] = value;
@@ -38,9 +38,9 @@ namespace DesktopClock {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public string LastLeft {
+        public double LastLeft {
             get {
-                return ((string)(this["LastLeft"]));
+                return ((double)(this["LastLeft"]));
             }
             set {
                 this["LastLeft"] = value;

@@ -6,11 +6,12 @@ namespace DesktopClock.Utils
 {
     public static class Geolocation
     {
-        public static async Task<BasicGeoposition> GetLocation()
+        public static BasicGeoposition GetLocation()
         {
             var locator  = new Geolocator();
-            var location = await locator.GetGeopositionAsync();
-            var position = location.Coordinate.Point.Position;
+            var locationTask = locator.GetGeopositionAsync().AsTask();
+            locationTask.Wait();
+            var position = locationTask.Result.Coordinate.Point.Position;
             return position;
         }
     }

@@ -1,6 +1,11 @@
+using System;
+using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using DesktopClock.Resource;
+using DryIoc;
 
 namespace DesktopClock.Views
 {
@@ -9,21 +14,61 @@ namespace DesktopClock.Views
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
+            if (MyConfig.Default.LastLeft != 0)
+            {
+                Left = MyConfig.Default.LastLeft;
+                Top  = MyConfig.Default.LastTop;
+            }
+            else
+            {
+                Left = WpfScreenHelper.Screen.PrimaryScreen.WorkingArea.Left;
+                Top  = WpfScreenHelper.Screen.PrimaryScreen.WorkingArea.Top;
+            }
+            Dispatcher.Invoke(() =>
+                              {
+                                  Weather.Text           = "Loading Weather...";
+                                  WeatherInfo.Foreground = new SolidColorBrush(Colors.White);
+                              });
 
+            GlobalVariable.GlobalContainer.RegisterInstance(this);
         }
 
         private void window_MouseMove(object sender, MouseEventArgs e)
         {
-            
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+                MyConfig.Default.LastLeft = Left;
+                MyConfig.Default.LastTop  = Top;
+                MyConfig.Default.Save();
+            }
         }
 
         private void RefreshWeatherBtn_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            
+
+        }
+
+        public void RefreshingWeatherUI()
+        {
+            // Dispatcher.Invoke(() =>
+            //                   {
+            //                       RotateTransform rtf = new RotateTransform();
+            //                       RefreshWeatherBtn.RenderTransform = rtf;
+            //                       //DoubleAnimation dbAscending = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(1)));
+            //                       DoubleAnimation ani = new DoubleAnimation();
+            //                       ani.From     = 0;
+            //                       ani.To       = 360;
+            //                       ani.Duration = TimeSpan.FromMilliseconds(500);
+            //                       Storyboard storyboard = new Storyboard();
+            //                       //ani.RepeatBehavior = RepeatBehavior.Forever;
+            //                       storyboard.Children.Add(ani);
+            //                       Storyboard.SetTarget(ani, RefreshWeatherBtn);
+            //                       Storyboard.SetTargetProperty(ani,
+            //                                                    new PropertyPath("RenderTransform.Angle"));
+            //                       storyboard.Begin();
+            //                   });
         }
     }
 }
