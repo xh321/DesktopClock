@@ -7,7 +7,7 @@ namespace DesktopClock.Utils
     {
         public static BasicGeoposition GetLocation()
         {
-            var locator  = new Geolocator();
+            var locator      = new Geolocator();
             var locationTask = locator.GetGeopositionAsync().AsTask();
             locationTask.Wait();
             var position = locationTask.Result.Coordinate.Point.Position;

@@ -4,15 +4,6 @@ namespace DesktopClock.Utils
 {
     public static class StringUtils
     {
-        public static string GetMiddle(this string text, string left, string right)
-        {
-            if (string.IsNullOrEmpty(text)) return text;
-
-            var leftIndex = text.IndexOf(left, StringComparison.Ordinal);
-
-            throw new NotImplementedException();
-        }
-
         public static string GetBetween(string text, string left, string right)
         {
             //判断是否为null或者是empty
@@ -47,7 +38,7 @@ namespace DesktopClock.Utils
 
         public static string String_GetLeft(string in_str, string find_str)
         {
-            var re_1 = "";
+            var re_1  = "";
             var index = in_str.IndexOf(find_str, StringComparison.Ordinal);
             if (index > 0)
             {
@@ -71,51 +62,5 @@ namespace DesktopClock.Utils
 
             return re;
         }
-
-        #region 拓展方法
-
-        /// <summary>
-        /// 获取字符串中某个子字符串右侧的字符串
-        /// </summary>
-        /// <param name="text">源字符串</param>
-        /// <param name="findStr">查找的字符串</param>
-        /// <returns>查找字符串右侧的字符串</returns>
-        public static string GetRight(this string text, string findStr)
-        {
-            if (text is null) throw new ArgumentNullException(nameof(text));
-            if (string.IsNullOrEmpty(findStr)) return text;
-
-            var index = text.IndexOf(findStr);
-
-            return index == -1
-                ? string.Empty
-                : text[(index + findStr.Length)..].ToString();
-        }
-
-        public static string GetRightLast(this string text, string findStr)
-        {
-            if (text is null) throw new ArgumentNullException(nameof(text));
-            if (string.IsNullOrEmpty(findStr)) return text;
-
-            var lastIndex = text.LastIndexOf(findStr);
-
-            return lastIndex == -1
-                ? string.Empty
-                : text[(lastIndex + findStr.Length)..].ToString();
-        }
-
-        public static string GetLeft(this string text, string findStr)
-        {
-            if (text is null) throw new ArgumentNullException(nameof(text));
-            if (string.IsNullOrEmpty(findStr)) return text;
-
-            var index = text.IndexOf(findStr);
-
-            return index == -1
-                ? string.Empty
-                : text[..(index + 1)].ToString();
-        }
-
-        #endregion
     }
 }
