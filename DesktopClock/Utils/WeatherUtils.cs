@@ -7,13 +7,13 @@ namespace DesktopClock.Utils
     {
         public class WeatherStatus
         {
-            public string WeatherIco = "ERROR LOADING WEATHER";
-            public string Temp = "";
-            public string Wind = "";
-            public string WindLevel = "";
-            public Color WeatherColor = Colors.White;
-            public Color TempColor = Colors.White;
-            public Color WindColor = Colors.White;
+            public string WeatherIco   = "ERROR LOADING WEATHER";
+            public string Temp         = "";
+            public string Wind         = "";
+            public string WindLevel    = "";
+            public Color  WeatherColor = Colors.White;
+            public Color  TempColor    = Colors.White;
+            public Color  WindColor    = Colors.White;
         }
 
         private static Color WeatherColorSwitcher(string icon) =>
