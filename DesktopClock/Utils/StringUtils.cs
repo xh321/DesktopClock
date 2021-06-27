@@ -45,28 +45,6 @@ namespace DesktopClock.Utils
             return text.Substring(Lindex, Rindex - Lindex); //返回查找到的文本
         }
 
-        public static string GetLeft(this string text, string findStr)
-        {
-            if (text is null) throw new ArgumentNullException(nameof(text));
-            if (findStr is null) throw new ArgumentNullException(nameof(findStr));
-            if (findStr == string.Empty) return text;
-
-            var textSpan = text.AsSpan();
-            var findSpan = findStr.AsSpan();
-            for (int i = 0, j = 0; i < text.Length; ++i)
-            {
-                while (j < findStr.Length && textSpan[i] == findSpan[j])
-                {
-                    if (j == findStr.Length - 1)
-                    {
-                        return textSpan[..(i - findStr.Length + 1)].ToString();
-                    }
-                    ++j;
-                }
-            }
-            return string.Empty;
-        }
-
         public static string String_GetLeft(string in_str, string find_str)
         {
             var re_1 = "";
@@ -77,28 +55,6 @@ namespace DesktopClock.Utils
             }
 
             return re_1;
-        }
-
-        public static string GetRight(this string text, string findStr)
-        {
-            if (text is null) throw new ArgumentNullException(nameof(text));
-            if (findStr is null) throw new ArgumentNullException(nameof(findStr));
-            if (findStr == string.Empty) return text;
-
-            var textSpan = text.AsSpan();
-            var findSpan = findStr.AsSpan();
-            for (int i = 0, j = 0; i < text.Length; ++i)
-            {
-                while (j < findStr.Length && textSpan[i] == findSpan[j])
-                {
-                    if (j == findStr.Length - 1)
-                    {
-                        return textSpan[(i + 1)..].ToString();
-                    }
-                    ++j;
-                }
-            }
-            return string.Empty;
         }
 
         public static string String_GetRight_Last(string in_str, string find_str)
@@ -115,5 +71,51 @@ namespace DesktopClock.Utils
 
             return re;
         }
+
+        #region 拓展方法
+
+        /// <summary>
+        /// 获取字符串中某个子字符串右侧的字符串
+        /// </summary>
+        /// <param name="text">源字符串</param>
+        /// <param name="findStr">查找的字符串</param>
+        /// <returns>查找字符串右侧的字符串</returns>
+        public static string GetRight(this string text, string findStr)
+        {
+            if (text is null) throw new ArgumentNullException(nameof(text));
+            if (string.IsNullOrEmpty(findStr)) return text;
+
+            var index = text.IndexOf(findStr);
+
+            return index == -1
+                ? string.Empty
+                : text[(index + findStr.Length)..].ToString();
+        }
+
+        public static string GetRightLast(this string text, string findStr)
+        {
+            if (text is null) throw new ArgumentNullException(nameof(text));
+            if (string.IsNullOrEmpty(findStr)) return text;
+
+            var lastIndex = text.LastIndexOf(findStr);
+
+            return lastIndex == -1
+                ? string.Empty
+                : text[(lastIndex + findStr.Length)..].ToString();
+        }
+
+        public static string GetLeft(this string text, string findStr)
+        {
+            if (text is null) throw new ArgumentNullException(nameof(text));
+            if (string.IsNullOrEmpty(findStr)) return text;
+
+            var index = text.IndexOf(findStr);
+
+            return index == -1
+                ? string.Empty
+                : text[..(index + 1)].ToString();
+        }
+
+        #endregion
     }
 }
