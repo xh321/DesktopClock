@@ -3,8 +3,6 @@ using System.Globalization;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using DesktopClock.Resource;
 using DesktopClock.Utils;
@@ -35,9 +33,9 @@ namespace DesktopClock.ViewModels
         private string _windText            = "N/A";
 
         //状态
-        private bool   LastStatus  = false;
-        private bool   LastStatusM = false;
-        private string lastMinute  = "";
+        private bool   LastStatus;
+        private bool   LastStatusM;
+        private string lastMinute = "";
 
         #endregion
 
@@ -147,76 +145,7 @@ namespace DesktopClock.ViewModels
             var theme      = WindowsUtils.GetThemeStyle();
             if (theme != _lastTheme)
             {
-                //先咕了
-                switch (theme)
-                {
-                    case "1":
-                        mainWindow.Dispatcher.Invoke(() =>
-                                                     {
-                                                         mainWindow.tHour_.Foreground =
-                                                             new SolidColorBrush("#36BBCE".ToColor());
-                                                         mainWindow.tMinute.Foreground =
-                                                             new SolidColorBrush("#33CCCC".ToColor());
-                                                         mainWindow.tSecond.Foreground =
-                                                             new SolidColorBrush("#5CCCCC".ToColor());
-                                                         mainWindow.tDate.Foreground =
-                                                             new
-                                                                 LinearGradientBrush("#BF7130".ToColor(),
-                                                                    "#FF7400".ToColor(),
-                                                                     45.0);
-                                                         mainWindow.tDay.Foreground =
-                                                             new
-                                                                 LinearGradientBrush("#FF7400".ToColor(),
-                                                                     "#FFB273".ToColor(),
-                                                                     45.0);
-                                                         mainWindow.HourMinuteDot.Foreground =
-                                                             new
-                                                                 LinearGradientBrush("#009999".ToColor(),
-                                                                     "#33CCCC".ToColor(),
-                                                                     45.0);
-                                                         mainWindow.MinuteSecondDot.Foreground =
-                                                             new
-                                                                 LinearGradientBrush("#33CCCC".ToColor(),
-                                                                     "#5CCCCC".ToColor(),
-                                                                     45.0);
-                                                     });
-                        break;
-                    case "0":
-                        mainWindow.Dispatcher.Invoke(() =>
-                                                     {
-                                                         var color1 = "#057D9F".ToColor();
-                                                         var color2 = "#39AECF".ToColor();
-                                                         var color3 = "#61B7CF".ToColor();
-                                                         var color4 = "#5DC8CD".ToColor();
-                                                         var color5 = "#3F92D2".ToColor();
-                                                         var color6 = "#0B61A4".ToColor();
-
-
-                                                         mainWindow.tHour_.Foreground =
-                                                             new LinearGradientBrush(color1, color2, 45.0);
-                                                         mainWindow.HourMinuteDot.Foreground =
-                                                             new LinearGradientBrush(color2, color3, 45.0);
-                                                         mainWindow.tMinute.Foreground =
-                                                             new LinearGradientBrush(color3, color4, 45.0);
-                                                         mainWindow.MinuteSecondDot.Foreground =
-                                                             new LinearGradientBrush(color4, color5, 45.0);
-                                                         mainWindow.tSecond.Foreground =
-                                                             new LinearGradientBrush(color5, color6, 45.0);
-
-                                                         mainWindow.tDate.Foreground =
-                                                             new
-                                                                 LinearGradientBrush("#1049A9".ToColor(),
-                                                                     "#87baf3".ToColor(),
-                                                                     45.0);
-                                                         mainWindow.tDay.Foreground =
-                                                             new
-                                                                 LinearGradientBrush("#87baf3".ToColor(),
-                                                                     "#052C6E".ToColor(),
-                                                                     45.0);
-                                                     });
-                        break;
-                }
-
+                mainWindow.SwitchTheme(theme);
                 _lastTheme = theme;
             }
 
@@ -277,33 +206,18 @@ namespace DesktopClock.ViewModels
             if (apiRet.Contains("Unknow"))
             {
                 WeatherText = "Weather Service Down";
-                mainWindow.Dispatcher.Invoke(() =>
-                                             {
-                                                 mainWindow.WeatherInfo.Foreground =
-                                                     new SolidColorBrush(Colors.White);
-                                             });
+                mainWindow.ChangeInfoColor(Colors.White);
             }
             else if (string.IsNullOrEmpty(apiRet))
             {
                 WeatherText = "Network Connect Error";
-                mainWindow.Dispatcher.Invoke(() =>
-                                             {
-                                                 mainWindow.WeatherInfo.Foreground =
-                                                     new SolidColorBrush(Colors.White);
-                                             });
+                mainWindow.ChangeInfoColor(Colors.White);
             }
             else
             {
                 var weatherStatus = WeatherUtils.ParseWeather(apiRet);
-                mainWindow.Dispatcher.Invoke(() =>
-                                             {
-                                                 mainWindow.Weather.Foreground =
-                                                     new SolidColorBrush(weatherStatus.WeatherColor);
-                                                 mainWindow.Temp.Foreground =
-                                                     new SolidColorBrush(weatherStatus.TempColor);
-                                                 mainWindow.Wind.Foreground =
-                                                     new SolidColorBrush(weatherStatus.WindColor);
-                                             });
+                mainWindow.ChangeWeatherColor(weatherStatus.WeatherColor, weatherStatus.TempColor,
+                                              weatherStatus.WindColor);
                 WeatherText =  weatherStatus.WeatherIco;
                 TempText    =  weatherStatus.Temp;
                 WindText    =  weatherStatus.Wind;

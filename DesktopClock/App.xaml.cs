@@ -1,9 +1,8 @@
-﻿using System;
 using System.Windows;
 
 namespace DesktopClock
 {
-    public partial class App : Application
+    public partial class App
     {
 
         protected override void OnStartup(StartupEventArgs e)
