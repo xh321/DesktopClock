@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Media;
+using DesktopClock.Extensions;
 
 namespace DesktopClock.Utils
 {
@@ -48,12 +49,12 @@ namespace DesktopClock.Utils
                 _ => Colors.DarkRed,
             };
 
-        //TODO 草这是什么我留个todo你自己看了（
-        //TODO mail@gaein.cn: 动态计算颜色RGB
         private static (string, Color) WindConvertor(int wind)
         {
+            // calculate wind level via magic.
             var windLevel = (int)(0.0979 * wind + 0.317 + 0.5);
 
+            // calculate wind color.
             Color windColor = windLevel >= 12
                 ? Colors.Navy
                 : new()
@@ -67,61 +68,60 @@ namespace DesktopClock.Utils
             return (windLevel.ToString(), windColor);
         }
 
-
+        [Obsolete]
         private static (string, Color) WindSwitcher(int wind) =>
-            wind switch
-            {
-                < 1 => ("0", Colors.White),
-                <= 5 => ("1", Colors.AliceBlue),
-                <= 19 => ("2", Colors.Aquamarine),
-                <= 28 => ("3", Colors.Cyan),
-                <= 38 => ("4", Colors.Cyan),
-                <= 49 => ("5", Colors.DeepSkyBlue),
-                <= 61 => ("6", Colors.CornflowerBlue),
-                <= 74 => ("7", Colors.DodgerBlue),
-                <= 88 => ("8", Colors.Blue),
-                <= 102 => ("9", Colors.MediumBlue),
-                <= 117 => ("10", Colors.DarkBlue),
-                <= 134 => ("11", Colors.MidnightBlue),
-                <= 149 => ("12", Colors.Navy),
-                <= 166 => ("13", Colors.Navy),
-                <= 183 => ("14", Colors.Navy),
-                <= 201 => ("15", Colors.Navy),
-                <= 220 => ("16", Colors.Navy),
-                _ => ("17", Colors.Navy)
-            };
+             wind switch
+             {
+                 < 1 => ("0", Colors.White),
+                 <= 5 => ("1", Colors.AliceBlue),
+                 <= 19 => ("2", Colors.Aquamarine),
+                 <= 28 => ("3", Colors.Cyan),
+                 <= 38 => ("4", Colors.Cyan),
+                 <= 49 => ("5", Colors.DeepSkyBlue),
+                 <= 61 => ("6", Colors.CornflowerBlue),
+                 <= 74 => ("7", Colors.DodgerBlue),
+                 <= 88 => ("8", Colors.Blue),
+                 <= 102 => ("9", Colors.MediumBlue),
+                 <= 117 => ("10", Colors.DarkBlue),
+                 <= 134 => ("11", Colors.MidnightBlue),
+                 <= 149 => ("12", Colors.Navy),
+                 <= 166 => ("13", Colors.Navy),
+                 <= 183 => ("14", Colors.Navy),
+                 <= 201 => ("15", Colors.Navy),
+                 <= 220 => ("16", Colors.Navy),
+                 _ => ("17", Colors.Navy)
+             };
 
 
         public static WeatherStatus ParseWeather(string input)
         {
-            input = input.Replace("  ", "").Trim();
+            input = input.Trim();
 
-            var weatherIco = StringUtils.String_GetLeft(input, "🌡").Trim();
-            var tempInput = StringUtils.GetBetween(input, "🌡", "🌬").Trim();
-            var windInput = StringUtils.String_GetRight_Last(input, "🌬").Trim();
-            var windDirection = "";
+            var weatherIco = input.GetLeft("🌡").Trim();
+            var tempInput = input.GetBetween("🌡", "🌬").Trim();
+            var windInput = input.GetRightLast("🌬").Trim();
+            var windDirection = string.Empty;
 
             //Emoji双字符，会遗留一个空白字符，需根据第二个字符是否为风向来判断
-
-            if (!char.IsDigit(windInput.ToCharArray()[1])) //如果不是数字，那就是风向了
+            if (!char.IsDigit(windInput[1]))    //如果不是数字，那就是风向了
             {
-                windDirection = windInput.Substring(1, 1); //风向
-                windInput = windInput[2..];            //去掉风向之后的风速
+                windDirection = windInput.Substring(1, 1);  //风向
+                windInput = windInput[2..];                 //去掉风向之后的风速
             }
 
-            _ = int.TryParse(StringUtils.String_GetLeft(tempInput[1..], "°C"), out int temp);
-            _ = int.TryParse(StringUtils.String_GetLeft(windInput, "km/h"), out var wind);
+            _ = int.TryParse(tempInput[1..].GetLeft("°C"), out int temp);
+            _ = int.TryParse(windInput.GetLeft("km/h"), out var wind);
 
             var ret = new WeatherStatus
             {
-                WeatherIco = weatherIco + " ",
+                WeatherIco = $"{weatherIco} ",
                 WeatherColor = WeatherColorSwitcher(weatherIco),
-                Temp = "🌡" + tempInput + " ", //SubString从第二个取的原因是Emoji字符会遗留一个空白字符
+                Temp = $"🌡{tempInput} ",
                 TempColor = TempColorSwitcher(temp),
-                Wind = "💨" + windDirection + windInput + " ",
+                Wind = $"💨{windDirection}{windInput} ",
             };
 
-            (ret.WindLevel, ret.WindColor) = WindSwitcher(wind);
+            (ret.WindLevel, ret.WindColor) = WindConvertor(wind);
 
             return ret;
         }
