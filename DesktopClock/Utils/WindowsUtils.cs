@@ -7,7 +7,7 @@ namespace DesktopClock.Utils
     {
         public static string GetThemeStyle()
             => Registry.CurrentUser
-                       .OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", false)
+                       .OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", false)
                        ?.GetValue("AppsUseLightTheme")
                        ?.ToString();
 
