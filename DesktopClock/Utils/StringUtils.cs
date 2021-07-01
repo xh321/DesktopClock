@@ -7,38 +7,29 @@ namespace DesktopClock.Utils
         public static string GetBetween(string text, string left, string right)
         {
             //判断是否为null或者是empty
-            if (string.IsNullOrEmpty(left))
+            if (string.IsNullOrEmpty(left) || string.IsNullOrEmpty(right) || string.IsNullOrEmpty(text))
+                return string.Empty;
+
+            var leftIndex = text.IndexOf(left, StringComparison.Ordinal); //搜索left的位置
+
+            //判断是否找到left
+            if (leftIndex == -1)
+                return string.Empty;
+
+            leftIndex += left.Length; //取出left右边文本起始位置
+
+            var rightIndex = text.IndexOf(right, leftIndex, StringComparison.Ordinal); //从left的右边开始寻找right
+
+            //判断是否找到right
+            if (rightIndex == -1)
                 return "";
-            if (string.IsNullOrEmpty(right))
-                return "";
-            if (string.IsNullOrEmpty(text))
-                return "";
-            //判断是否为null或者是empty
 
-            int Lindex = text.IndexOf(left, StringComparison.Ordinal); //搜索left的位置
-
-            if (Lindex == -1)
-            {
-                //判断是否找到left
-                return "";
-            }
-
-            Lindex = Lindex + left.Length; //取出left右边文本起始位置
-
-            int Rindex = text.IndexOf(right, Lindex, StringComparison.Ordinal); //从left的右边开始寻找right
-
-            if (Rindex == -1)
-            {
-                //判断是否找到right
-                return "";
-            }
-
-            return text.Substring(Lindex, Rindex - Lindex); //返回查找到的文本
+            return text[leftIndex..rightIndex]; //返回查找到的文本
         }
 
         public static string String_GetLeft(string in_str, string find_str)
         {
-            var re_1  = "";
+            var re_1 = "";
             var index = in_str.IndexOf(find_str, StringComparison.Ordinal);
             if (index > 0)
             {
